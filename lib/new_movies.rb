@@ -1,5 +1,3 @@
 require "new_movies/version"
-
-module NewMovies
-  # Your code goes here...
-end
+require_relative './new_movies/CLI'
+#require_relative './new_movies'
