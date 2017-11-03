@@ -6,11 +6,12 @@ class NewMovies::CLI
 
   def list_new_movies
     puts "Movies Coming Soon:"
-    @movies = NewMovies::Movie.all
+    NewMovies::Movie.all.each_with_index do |movie, index|
+      puts "#{index+1}. #{movie}"
+    end
   end
 
   def menu
-
     list_new_movies
     input = nil
     while input != "exit"
