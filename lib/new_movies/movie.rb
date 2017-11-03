@@ -1,8 +1,10 @@
+require 'open-uri'
 class NewMovies::Movie
 attr_accessor :title, :runtime, :genre, :url
 
+
   def initialize
-      @@all << self
+      #@@all << self
   end
 
 # If all is nil go get me all of the up coming movies ||= operator checks to see if the variable is nil and if it is the right side is executed
@@ -15,10 +17,10 @@ attr_accessor :title, :runtime, :genre, :url
   def self.scrape_coming_soon_movies
     binding.pry
     doc = Nokogiri::HTML(open("https://www.cinemark.com/movies/coming-soon"))
-    doc.css("div.card").each do |movie|
+    doc.css("div.card .title").collect do |new_movie|
       binding.pry
-      movie = Movie.new
-      movie.name
+      movie = self.new
+      movie.title = new_movie.inner_text
     end
   end
 
