@@ -1,10 +1,28 @@
 class NewMovies::Movie
 attr_accessor :title, :runtime, :genre, :url
-  @@all = []
 
-  def self.all
-    @@all
+  def initialize
+      @@all << self
   end
+
+# If all is nil go get me all of the up coming movies ||= operator checks to see if the variable is nil and if it is the right side is executed
+  def self.all
+    binding.pry
+    @@all ||= scrape_coming_soon_movies
+  end
+
+# scrape_coming_soon_movies will be a class method. We only need it to get us all of the movies that are coming soon and asign it to the all class array
+  def self.scrape_coming_soon_movies
+    binding.pry
+    doc = Nokogiri::HTML(open("https://www.cinemark.com/movies/coming-soon"))
+    doc.css("div.card").each do |movie|
+      binding.pry
+      movie = Movie.new
+      movie.name
+    end
+  end
+
+
 
   def self.all1
     puts "
