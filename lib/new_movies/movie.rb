@@ -2,9 +2,9 @@ require 'open-uri'
 class NewMovies::Movie
 attr_accessor :title, :runtime, :genre, :url
 
-
-  def initialize
-      #@@all << self
+  def initialize(title = nil, url= nil)
+    @title = title
+    @url = url
   end
 
 # If all is nil go get me all of the up coming movies ||= operator checks to see if the variable is nil and if it is the right side is executed
@@ -17,32 +17,15 @@ attr_accessor :title, :runtime, :genre, :url
     #binding.pry
     doc = Nokogiri::HTML(open("https://www.cinemark.com/movies/coming-soon"))
     doc.css("div.card .title").collect do |new_movie|
-      movie = self.new
-      movie.title = new_movie.inner_text
+      self.new(new_movie.inner_text, "https://www.cinemark.com#{new_movie.attribute("href").value}")
+      #movie = self.new
+      #movie.title = new_movie.inner_text
+      #movie.url = new_movie.attribute("href").value
+
     end
   end
 
 
-
-  def self.all1
-    puts "
-      1. Star Wars
-      2. Wonder
-      "
-      movie_1 = self.new
-      @@all << movie_1
-      movie_1.title = "Star Wars"
-      movie_1.runtime = "150 min"
-      movie_1.genre = "Action, Adventure, Sci-Fi, Fantasy"
-      movie_1.url = "https://www.cinemark.com/star-wars-the-last-jedi"
-
-      #movie_2 = self.new
-      #movie_2.title = "Wonder"
-      #movie_2.runtime = "113 min"
-      #movie_2.genre = "Drama"
-      #movie_2.url = "https://www.cinemark.com/wonder"
-
-  end
 
   def self.movie_details
     movie_1 = self.new

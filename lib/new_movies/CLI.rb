@@ -5,9 +5,10 @@ class NewMovies::CLI
   end
 
   def list_new_movies
-    puts "Movies Coming Soon:"
+    puts "Movies Coming Soon to Cinemark Theatres:"
     NewMovies::Movie.all.each_with_index do |movie, index|
-      puts "#{index+1}. #{movie}"
+      binding.pry
+      puts "#{index+1}. #{movie.title}"
     end
   end
 
@@ -21,6 +22,7 @@ class NewMovies::CLI
       if input.to_i > 0
         puts NewMovies::Movie.all[input.to_i - 1]
       elsif input == "list"
+        binding.pry
         list_new_movies
       else
         puts "not sure what you meant"
