@@ -7,7 +7,6 @@ class NewMovies::CLI
   def list_new_movies
     puts "Movies Coming Soon to Cinemark Theatres:"
     NewMovies::Movie.all.each_with_index do |movie, index|
-      binding.pry
       puts "#{index+1}. #{movie.title}"
     end
   end
@@ -20,7 +19,9 @@ class NewMovies::CLI
       input = gets.strip.downcase
 
       if input.to_i > 0
-        puts NewMovies::Movie.all[input.to_i - 1]
+        movie_details(input)
+        #puts "#{NewMovies::Movie.find_movie_by_index(input)}"
+        #puts NewMovies::Movie.all[input.to_i - 1]
       elsif input == "list"
         binding.pry
         list_new_movies
@@ -29,6 +30,13 @@ class NewMovies::CLI
       end
     end
   end
+
+  def movie_details(input)
+    detials = NewMovies::Movie.find_movie_by_index(input)
+    puts "Movie Title: #{detials.title}"
+    puts "Link: #{detials.url}"
+  end
+
 
   def goodbye
     puts "See you next time!"

@@ -18,11 +18,12 @@ attr_accessor :title, :runtime, :genre, :url
     doc = Nokogiri::HTML(open("https://www.cinemark.com/movies/coming-soon"))
     doc.css("div.card .title").collect do |new_movie|
       self.new(new_movie.inner_text, "https://www.cinemark.com#{new_movie.attribute("href").value}")
-      #movie = self.new
-      #movie.title = new_movie.inner_text
-      #movie.url = new_movie.attribute("href").value
-
     end
+  end
+
+  def self.find_movie_by_index(index)
+    binding.pry
+    self.all[index.to_i - 1]
   end
 
 
