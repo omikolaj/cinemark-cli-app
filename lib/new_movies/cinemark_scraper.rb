@@ -15,9 +15,9 @@ class NewMovies::Scraper
   end
 
 
-  def self.scrape_movie_details(index)
-    movie = NewMovies::Movie.all[index.to_i - 1]
-    doc = Nokogiri::HTML(open("#{movie[:url]}"))
+  def self.scrape_movie_details(movie)
+    movie #= NewMovies::Movie.all[index.to_i - 1]
+    doc = Nokogiri::HTML(open("#{movie.url}"))
     attribute_values ={}
     attributes = {"Release Dates" => "release_date", "Rating" => "rating", "Runtime" => "runtime", "Genre" => "genre", "Cast" => "cast", "Director" => "director", "Synopsis" => "synopsis"}
     attributes.each do |attribute, v|
