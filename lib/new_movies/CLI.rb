@@ -6,9 +6,12 @@ class NewMovies::CLI
 
   def list_new_movies
     puts "Movies Coming Soon to Cinemark Theatres:"
-    NewMovies::Movie.all.each_with_index do |movie, index|
-      puts "#{index+1}. #{movie.title}"
-    end
+    movie_list = NewMovies::Scraper.scrape_coming_soon_movies #.each_with_index do |movie, index|
+      binding.pry
+      NewMovies::Movie.create_movie_list(movie_list)
+      puts "#{index+1}. #{movie[:title]}"
+
+    #end
   end
 
   def menu
