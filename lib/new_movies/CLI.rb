@@ -18,7 +18,7 @@ WIDTH = 70
 
   def call
     get_movies
-    menu
+    main_menu
   end
 
   def get_movies
@@ -38,9 +38,6 @@ WIDTH = 70
   end
 
   def menu
-    list_new_movies
-    input = nil
-    puts "What movie do you want more details about?"
     print "Please select a number: "
     input = gets.strip.downcase
     if input == "exit"
@@ -56,9 +53,16 @@ WIDTH = 70
     end
   end
 
+  def main_menu
+    list_new_movies
+    input = nil
+    puts "What movie do you want more details about?"
+    menu
+  end
+
   def menu_restart
     puts " "
-    puts "Enter list to view the movies again or enter exit"
+    puts "Enter 'list' to view the movies again or enter 'exit'."
       input = gets.strip.downcase
       if input == "exit"
           goodbye
