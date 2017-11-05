@@ -23,7 +23,6 @@ class NewMovies::CLI
         #puts "#{NewMovies::Movie.find_movie_by_index(input)}"
         #puts NewMovies::Movie.all[input.to_i - 1]
       elsif input == "list"
-        binding.pry
         list_new_movies
       else
         puts "not sure what you meant"
@@ -32,9 +31,13 @@ class NewMovies::CLI
   end
 
   def movie_details(input)
-    detials = NewMovies::Movie.find_movie_by_index(input)
-    puts "Movie Title: #{detials.title}"
-    puts "Link: #{detials.url}"
+    details = NewMovies::Movie.find_movie_by_index(input)
+    binding.pry
+    puts "Movie Title: #{details.title}"
+    puts "Link: #{details.url}"
+    puts "Runtime: #{details.runtime}"
+    puts "Director: #{details.director}"
+    puts "Cast: #{details.cast}"
   end
 
 

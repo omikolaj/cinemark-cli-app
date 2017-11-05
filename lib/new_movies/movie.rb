@@ -1,6 +1,6 @@
 require 'open-uri'
 class NewMovies::Movie
-attr_accessor :title, :runtime, :genre, :url, :release_date, :cast, :director, :movie_site, :synopsis
+attr_accessor :title, :runtime, :genre, :url, :release_date, :cast, :director, :movie_site, :synopsis, :rating
 
   def initialize(title = nil, url= nil)
     @title = title
@@ -23,22 +23,37 @@ attr_accessor :title, :runtime, :genre, :url, :release_date, :cast, :director, :
   def self.scrape_movie_details(index)
     movie = self.all[index.to_i - 1]
     doc = Nokogiri::HTML(open("#{movie.url}"))
-    binding.pry
-      movie.release_date = doc.css("div.hidden-xs p")[0].text.strip
-      movie.rating = doc.css("div.hidden-xs p")[1].text.strip
-      movie.runtime = doc.css("div.hidden-xs p")[2].text.strip
-      if doc.css("#xsMovieDetails > div:nth-child(3) > h3:nth-child(1)").text.include?("Genre")
-        movie.genre = doc.css("#xsMovieDetails > div:nth-child(3) > p:nth-child(2)").inner_text
-      elsif doc.css("#xsMovieDetails > div:nth-child(3) > h3:nth-child(5)").text.incude("director")
 
-      movie.cast = doc.css("#xsMovieDetails > div:nth-child(3) > p:nth-child(4)").inner_text
-      movie.synopsis = doc.css("#xsMovieDetails > div:nth-child(3) > p:nth-child(6)").inner_text
-end
+      movie.release_date = doc.xpath("//h3[contains(text(), 'Release Dates')]/following-sibling::p")[0].inner_text.strip
+
+      binding.pry
+      if doc.css("div.hidden-xs p")[1].text != ""
+        movie.rating = doc.css("div.hidden-xs p")[1].text.strip
+
+      elsif doc.xpath("//h3[contains(text(), 'Runtime')]").text.include?("Runtime")
+        movie.runtime = doc.xpath("//h3[contains(text(), 'Runtime')]/following-sibling::p").text
+
+      elsif doc.xpath("//h3[contains(text(), 'Genre')]").text.include?("Genre")
+        movie.genre = doc.xpath("//h3[contains(text(), 'Genre')]/following-sibling::p")[0].text
+
+      elsif doc.xpath("//h3[contains(text(), 'Cast')]").text.include?("Cast")
+        movie.cast = doc.xpath("//h3[contains(text(), 'Cast')]/following-sibling::p")[0].text
+
+      elsif doc.xpath("//h3[contains(text(), 'Director')]").text.include?("Director")
+        movie.director = doc.xpath("//h3[contains(text(), 'Director')]/following-sibling::p")[0].text
+
+      elsif doc.xpath("//h3[contains(text(), 'Synopsis')]").text.include?("Synopsis")
+        movie.synopsis = doc.xpath("//h3[contains(text(), 'Synopsis')]/following-sibling::p")[0].text
+
+      elsif doc.xpath("//h3[contains(text(), 'Official Site')]").text.strip.include?("Official Site")
+        movie.movie_site = doc.css("p.trunc").text.strip
+
+
+      end
 
   end
 
   def self.find_movie_by_index(index)
-    binding.pry
     self.scrape_movie_details(index)
     self.all[index.to_i - 1]
   end
