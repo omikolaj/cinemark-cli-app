@@ -45,14 +45,29 @@ WIDTH = 70
     input = gets.strip.downcase
     if input == "exit"
       goodbye
-    elsif input.to_i > 0
+    elsif input.to_i > 0 && input.to_i <= NewMovies::Movie.all.length
         movie_details(input)
+        menu_restart
     elsif input == "list"
-        list_new_movies
+          menu
     else
-        puts "not sure what you meant"
-      end
+      puts "Invalid entry, please select a valid number"
+      menu
     end
+  end
+
+  def menu_restart
+    puts " "
+    puts "Enter list to view the movies again or enter exit"
+      input = gets.strip.downcase
+      if input == "exit"
+          goodbye
+      elsif input == "list"
+        menu
+      else
+        menu_restart
+      end
+  end
 
 
   def movie_details(input)
