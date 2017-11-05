@@ -1,10 +1,11 @@
 require 'open-uri'
 class NewMovies::Movie
-attr_accessor :title, :runtime, :genre, :url, :release_date, :cast, :director, :movie_site, :synopsis, :rating
+attr_accessor :title, :url, :runtime, :genre, :release_date, :cast, :director, :movie_site, :synopsis, :rating
 
   def initialize(title = nil, url= nil)
     @title = title
     @url = url
+
   end
 
 # If all is nil go get me all of the up coming movies ||= operator checks to see if the variable is nil and if it is the right side is executed
@@ -23,32 +24,32 @@ attr_accessor :title, :runtime, :genre, :url, :release_date, :cast, :director, :
   def self.scrape_movie_details(index)
     movie = self.all[index.to_i - 1]
     doc = Nokogiri::HTML(open("#{movie.url}"))
+    binding.pry
 
-      movie.release_date = doc.xpath("//h3[contains(text(), 'Release Dates')]/following-sibling::p")[0].inner_text.strip
+      if doc.xpath("//h3[contains(text(), 'Release Dates')]").text.include?("Release Dates")
+        movie.release_date = doc.xpath("//h3[contains(text(), 'Release Dates')]/following-sibling::p")[0].text.strip
+      end
 
-      binding.pry
-      if doc.css("div.hidden-xs p")[1].text != ""
-        movie.rating = doc.css("div.hidden-xs p")[1].text.strip
-
-      elsif doc.xpath("//h3[contains(text(), 'Runtime')]").text.include?("Runtime")
+      if doc.xpath("//h3[contains(text(), 'Rating')]").text.include?("Rating")
+        movie.rating = doc.xpath("//h3[contains(text(), 'Rating')]/following-sibling::p")[0].text.strip
+        end
+      if doc.xpath("//h3[contains(text(), 'Runtime')]").text.include?("Runtime")
         movie.runtime = doc.xpath("//h3[contains(text(), 'Runtime')]/following-sibling::p").text
-
-      elsif doc.xpath("//h3[contains(text(), 'Genre')]").text.include?("Genre")
+        end
+      if doc.xpath("//h3[contains(text(), 'Genre')]").text.include?("Genre")
         movie.genre = doc.xpath("//h3[contains(text(), 'Genre')]/following-sibling::p")[0].text
-
-      elsif doc.xpath("//h3[contains(text(), 'Cast')]").text.include?("Cast")
+        end
+      if doc.xpath("//h3[contains(text(), 'Cast')]").text.include?("Cast")
         movie.cast = doc.xpath("//h3[contains(text(), 'Cast')]/following-sibling::p")[0].text
-
-      elsif doc.xpath("//h3[contains(text(), 'Director')]").text.include?("Director")
+        end
+      if doc.xpath("//h3[contains(text(), 'Director')]").text.include?("Director")
         movie.director = doc.xpath("//h3[contains(text(), 'Director')]/following-sibling::p")[0].text
-
-      elsif doc.xpath("//h3[contains(text(), 'Synopsis')]").text.include?("Synopsis")
+        end
+      if doc.xpath("//h3[contains(text(), 'Synopsis')]").text.include?("Synopsis")
         movie.synopsis = doc.xpath("//h3[contains(text(), 'Synopsis')]/following-sibling::p")[0].text
-
-      elsif doc.xpath("//h3[contains(text(), 'Official Site')]").text.strip.include?("Official Site")
+        end
+      if doc.xpath("//h3[contains(text(), 'Official Site')]").text.strip.include?("Official Site")
         movie.movie_site = doc.css("p.trunc").text.strip
-
-
       end
 
   end

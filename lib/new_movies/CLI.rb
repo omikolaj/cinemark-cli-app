@@ -32,7 +32,7 @@ class NewMovies::CLI
 
   def movie_details(input)
     details = NewMovies::Movie.find_movie_by_index(input)
-    binding.pry
+
     puts "Movie Title: #{details.title}"
     puts "Link: #{details.url}"
     puts "Runtime: #{details.runtime}"
