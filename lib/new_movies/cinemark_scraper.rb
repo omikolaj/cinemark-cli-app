@@ -18,8 +18,8 @@ class NewMovies::Scraper
       if doc.xpath("//h3[contains(text(), '#{attribute}')]").text.include?("#{attribute}")
          attribute_values[[attributes[attribute]].join.to_sym] = doc.xpath("//h3[contains(text(),   '#{attribute}')]/following-sibling::p")[0].text.strip
       end
-      if doc.xpath("//h3[contains(text(), 'Official           Site')]").text.strip.include?("Official Site")
-        attribute_values["Official Site"] = doc.css("p.trunc").text.strip
+      if doc.xpath("//h3[contains(text(), 'Official Site')]").text.strip.include?("Official Site")
+        attribute_values["movie_site"] = doc.css("p.trunc").text.strip
       end
     end
     attribute_values

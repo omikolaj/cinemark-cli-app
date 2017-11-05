@@ -67,7 +67,7 @@ WIDTH = 70
       if input == "exit"
           goodbye
       elsif input == "list"
-        menu
+        main_menu
       else
         menu_restart
       end
@@ -78,7 +78,6 @@ WIDTH = 70
     details = NewMovies::Movie.find_movie_by_index(input)
     puts center("#{details.title.upcase}")
     puts " "
-    puts "  Title: #{details.title}" if details.title
     puts "  URL: #{details.url}" if details.url
     puts "  Runtime: #{details.runtime}" if details.runtime
     puts "  Rating: #{details.rating}" if details.rating != ""
@@ -86,7 +85,7 @@ WIDTH = 70
     puts "  Release Date: #{details.release_date}" if details.release_date
     puts "  Director: #{details.director}" if details.director
     puts wrap("  Cast: #{details.cast}") if details.cast
-    puts "  Movie Site: #{details.movie_site}" if details.movie_site
+    puts "  Movie Site: http://#{details.movie_site}" if details.movie_site
     puts wrap("\n  Synopsis: #{details.synopsis}") if details.synopsis
     puts center("END OF DETAILS")
   end
