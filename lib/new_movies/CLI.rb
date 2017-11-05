@@ -80,7 +80,7 @@ WIDTH = 70
     puts " "
     puts "  Title: #{details.title}" if details.title
     puts "  URL: #{details.url}" if details.url
-    puts "  Runetime: #{details.runtime}" if details.runtime
+    puts "  Runtime: #{details.runtime}" if details.runtime
     puts "  Rating: #{details.rating}" if details.rating != ""
     puts "  Genre: #{details.genre}" if details.genre
     puts "  Release Date: #{details.release_date}" if details.release_date
