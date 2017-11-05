@@ -34,6 +34,7 @@ WIDTH = 70
       puts "   #{index+1}. #{movie.title}" if index.to_i > 9
     end
       puts center("END OF LIST")
+      puts " "
   end
 
   def menu
@@ -56,21 +57,19 @@ WIDTH = 70
 
   def movie_details(input)
     details = NewMovies::Movie.find_movie_by_index(input)
-    puts center("#{details.title}.upcase")
+    puts center("#{details.title.upcase}")
     puts " "
     puts "  Title: #{details.title}" if details.title
     puts "  URL: #{details.url}" if details.url
     puts "  Runetime: #{details.runtime}" if details.runtime
-    puts "  Rating: #{details.rating}" if details.rating
+    puts "  Rating: #{details.rating}" if details.rating != ""
     puts "  Genre: #{details.genre}" if details.genre
     puts "  Release Date: #{details.release_date}" if details.release_date
-    puts wrap("  Cast: #{details.cast}") if details.cast
     puts "  Director: #{details.director}" if details.director
+    puts wrap("  Cast: #{details.cast}") if details.cast
     puts "  Movie Site: #{details.movie_site}" if details.movie_site
     puts wrap("\n  Synopsis: #{details.synopsis}") if details.synopsis
-    puts " "
     puts center("END OF DETAILS")
-    puts " "
   end
 
 
