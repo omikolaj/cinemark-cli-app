@@ -16,7 +16,7 @@ class NewMovies::Scraper
     attributes = {"Release Dates" => "release_date", "Rating" => "rating", "Runtime" => "runtime", "Genre" => "genre", "Cast" => "cast", "Director" => "director", "Synopsis" => "synopsis"}
     attributes.each do |attribute, v|
       if doc.xpath("//h3[contains(text(), '#{attribute}')]").text.include?("#{attribute}")
-         attribute_values[[attributes[attribute]].join.to_sym] = doc.xpath("//h3[contains(text(),   '#{attribute}')]/following-sibling::p")[0].text.strip
+         attribute_values[[attributes[attribute]].join.to_sym] = doc.xpath("//h3[contains(text(), '#{attribute}')]/following-sibling::p")[0].text.strip
       end
       if doc.xpath("//h3[contains(text(), 'Official Site')]").text.strip.include?("Official Site")
         attribute_values["movie_site"] = doc.css("p.trunc").text.strip
