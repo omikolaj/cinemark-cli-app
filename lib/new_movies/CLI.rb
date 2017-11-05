@@ -1,6 +1,23 @@
 class NewMovies::CLI
 
+WIDTH = 70
+
+  def center(string, c = "-")
+     string = " #{string} " if string != ""
+     until string.length >= WIDTH
+       string.prepend(c)
+       string << (c)
+     end
+     string.prepend("\n")
+   end
+
+
+  def wrap(s)
+       s.gsub(/(.{1,#{WIDTH}})(\s+|\Z)/, "\\1\n")
+     end
+
   def call
+    get_movies
     menu
   end
 
@@ -10,19 +27,20 @@ class NewMovies::CLI
 
 
   def list_new_movies
-    get_movies
-    puts "Movies Coming Soon to Cinemark Theatres:"
-
+    puts center("MOVIES COMING SOON TO CINEMARK THEATRES")
+    puts " "
     NewMovies::Movie.all.each_with_index do |movie, index|
-      puts "#{index+1}. #{movie.title}"
-
+      puts "    #{index+1}. #{movie.title}" if index.to_i < 9
+      puts "   #{index+1}. #{movie.title}" if index.to_i > 9
     end
+      puts center("END OF LIST")
   end
 
   def menu
     list_new_movies
     input = nil
-    while input != "exit"
+    if input == "exit"
+      goodbye
       puts "Enter the number of the movie you would like to see more details about or type movies to see a list of movies again or type exit:"
       input = gets.strip.downcase
 
@@ -38,48 +56,27 @@ class NewMovies::CLI
 
   def movie_details(input)
     details = NewMovies::Movie.find_movie_by_index(input)
-    #binding.pry
+    puts wrap("#{movie.title}.upcase")
     puts " "
-    puts "-----------MOVIE DETAILS-----------"
+    puts "Title: #{details.title}" if details.title
+    puts "URL: #{details.url}" if details.url
+    puts "Runetime: #{details.runtime}" if details.runtime
+    puts "Genre: #{details.genre}" if details.genre
+    puts "Release Date: #{details.release_date}" if details.release_date
+    puts "Cast: #{details.cast}" if details.cast
+    puts "Director: #{details.director}" if details.director
+    puts "Movie Site: #{details.movie_site}" if details.movie_site
+    puts "Synopsis: #{details.synopsis}" if details.synopsis
+    puts "Rating: #{details.rating}" if details.rating
     puts " "
-    if details.title
-      puts "Title: #{details.title}"
-      end
-    if details.url
-      puts "URL: #{details.url}"
-      end
-    if details.runtime
-      puts "Runetime: #{details.runtime}"
-      end
-    if details.genre
-      puts "Genre: #{details.genre}"
-      end
-    if details.release_date
-      puts "Release Date: #{details.release_date}"
-      end
-    if details.cast
-      puts "Cast: #{details.cast}"
-      end
-    if details.director
-      puts "Director: #{details.director}"
-      end
-    if details.movie_site
-      puts "Movie Site: #{details.movie_site}"
-      end
-    if details.synopsis
-      puts "Synopsis: #{details.synopsis}"
-      end
-    if details.rating
-      puts "Rating: #{details.rating}"
-    end
-    puts " "
-    puts "-----------END OF DETAILS-----------"
+    puts wrap("END OF DETAILS")
     puts " "
   end
 
 
   def goodbye
     puts "See you next time!"
+    exit
   end
 
 end
