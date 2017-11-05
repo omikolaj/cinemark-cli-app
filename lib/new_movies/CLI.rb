@@ -85,8 +85,8 @@ WIDTH = 70
     puts "  Release Date: #{details.release_date}" if details.release_date
     puts "  Director: #{details.director}" if details.director
     puts wrap("  Cast: #{details.cast}") if details.cast
-    puts "  Movie Site: http://#{details.movie_site}" if details.movie_site
     puts wrap("\n  Synopsis: #{details.synopsis}") if details.synopsis
+    puts "  Movie Site: #{details.movie_site}" if details.movie_site
     puts center("END OF DETAILS")
   end
 
