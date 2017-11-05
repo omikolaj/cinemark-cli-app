@@ -1,17 +1,16 @@
 require 'open-uri'
 class NewMovies::Movie
-attr_accessor :title, :url, :runtime, :genre, :release_date, :cast, :director, :movie_site, :synopsis, :rating
+attr_accessor :title, :url, :runtime, :genre, :release_date, :cast, :director, :movie_site, :synopsis, :rating, :index
 
   @@all = []
 
   def initialize(movie_list_hash)
-    #binding.pry
     movie_list_hash.each{|key, value| self.send(("#{key}="), value)}
     @@all << self
   end
 
-  def self.attribute_assignment(movies_hash_attributes)
-    binding.pry
+  def attribute_assignment(movies_hash_attributes)
+    #binding.pry
     movies_hash_attributes.each{|key, value| self.send(("#{key}="), value)}
   end
 
@@ -22,13 +21,12 @@ attr_accessor :title, :url, :runtime, :genre, :release_date, :cast, :director, :
   end
 
   def self.all
-    @@all #||= NewMovies::Scraper.scrape_coming_soon_movies
+    @@all
   end
 
   def self.find_movie_by_index(index)
-    binding.pry
-    self.attribute_assignment(NewMovies::Scraper.scrape_movie_details(self.all[index.to_i - 1]))
-
+    NewMovies::Movie.all[index.to_i - 1].attribute_assignment(NewMovies::Scraper.scrape_movie_details(NewMovies::Movie.all[index.to_i - 1]))
+    NewMovies::Movie.all[index.to_i - 1]
   end
 
 
