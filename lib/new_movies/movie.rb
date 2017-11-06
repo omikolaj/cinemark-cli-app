@@ -1,4 +1,3 @@
-require 'open-uri'
 class NewMovies::Movie
 attr_accessor :title, :url, :runtime, :genre, :release_date, :cast, :director, :movie_site, :synopsis, :rating, :index
 
