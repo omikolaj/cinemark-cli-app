@@ -1,28 +1,14 @@
-# NewMovies
+# New::Movies::Cinemark::Gem
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/new_movies`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+This gem scrapes https://cinemark.com/movies/coming-soon and lists all of the upcoming movies to Cinemark Theatres and presents it in a list. User can select the movie they want more details on which will display all of the available details of that movie in a list.
 
 ## Installation
 
-Add this line to your application's Gemfile:
-
-```ruby
-gem 'new_movies'
-```
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install new_movies
+You can install this gem via 'gem install new_movies_cinemark'. 
 
 ## Usage
 
-TODO: Write usage instructions here
+Run 'new_movies' after installation
 
 ## Development
 
@@ -38,6 +24,3 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/'omiko
 
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
 
-## Code of Conduct
-
-Everyone interacting in the NewMovies project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/'omikolaj'/new_movies/blob/master/CODE_OF_CONDUCT.md).
