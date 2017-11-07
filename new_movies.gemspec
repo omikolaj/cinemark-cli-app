@@ -13,9 +13,9 @@ Gem::Specification.new do |spec|
 
   spec.homepage      = "https://github.com/omikolaj/cinemark-cli-app"
 
-  spec.add_development_dependency "rspec", ">=0"
-  spec.add_development_dependency "nokogiri", ">=0"
-  spec.add_development_dependency "pry", ">=0"
+  spec.add_development_dependency "rspec", "~> 0"
+  spec.add_development_dependency "nokogiri", "~> 0"
+  spec.add_development_dependency "pry", "~> 0"
   spec.add_development_dependency "bundler", "~> 1.15"
   spec.add_development_dependency "rake", "~> 10.0"
 end
