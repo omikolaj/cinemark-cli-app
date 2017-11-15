@@ -28,8 +28,8 @@ WIDTH = 70
     puts center("MOVIES COMING SOON TO CINEMARK THEATRES")
     puts " "
     NewMovies::Movie.all.each_with_index do |movie, index|
-      puts "    #{index+1}. #{movie.title}" if index.to_i < 9
-      puts "   #{index+1}. #{movie.title}" if index.to_i > 9
+      puts "    #{index+1}. #{movie.title}" if index.to_i+1 < 10
+      puts "   #{index+1}. #{movie.title}" if index.to_i+1 >= 10
     end
       puts center("END OF LIST")
       puts " "
