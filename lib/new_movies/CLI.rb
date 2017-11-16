@@ -16,12 +16,8 @@ WIDTH = 70
      end
 
   def call
-    get_movies
+    NewMovies::Scraper.scrape_coming_soon_movies
     main_menu
-  end
-
-  def get_movies
-    NewMovies::Movie.create_movie_list(NewMovies::Scraper.scrape_coming_soon_movies)
   end
 
   def list_new_movies

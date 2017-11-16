@@ -3,8 +3,9 @@ class NewMovies::Movie
 
   @@all = []
 
-  def initialize(movie_list_hash)
-    movie_list_hash.each{|key, value| self.send(("#{key}="), value)}
+  def initialize(title ,url)
+    @title = title
+    @url = url
     @@all << self
   end
 
@@ -12,19 +13,14 @@ class NewMovies::Movie
     movies_hash_attributes.each{|key, value| self.send(("#{key}="), value)}
   end
 
-  def self.create_movie_list(movie_array)
-    movie_array.each do |movie|
-      NewMovies::Movie.new(movie)
-    end
-  end
-
   def self.all
     @@all
   end
 
   def self.find_movie_by_index(index)
-    NewMovies::Movie.all[index.to_i - 1].attribute_assignment(NewMovies::Scraper.scrape_movie_details(NewMovies::Movie.all[index.to_i - 1]))
-    NewMovies::Movie.all[index.to_i - 1]
+    movie = NewMovies::Movie.all[index.to_i - 1]
+    movie.attribute_assignment(NewMovies::Scraper.scrape_movie_details(movie))
+    movie
   end
 
 end

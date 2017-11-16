@@ -2,12 +2,11 @@ class NewMovies::Scraper
 
   def self.scrape_coming_soon_movies
     doc = Nokogiri::HTML(open("https://www.cinemark.com/movies/coming-soon"))
-    movie_collection = []
     doc.css("div.card .title").collect do |new_movie|
-      movie_collection << {:title => new_movie.inner_text,
-                          :url => "https://www.cinemark.com#{new_movie.attribute("href").value}"}
+        NewMovies::Movie.new(new_movie.inner_text,
+        "https://www.cinemark.com#{new_movie.attribute("href").value}")
     end
-    movie_collection
+
   end
 
   def self.scrape_movie_details(movie)
