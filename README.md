@@ -4,7 +4,7 @@ This gem scrapes https://cinemark.com/movies/coming-soon and lists all of the up
 
 ## Blog
 
-A blog post about this project can be found at [here](http://omikolaj.com/command_line_interface_-_published_gem)
+A blog post about this project can be found [here](http://omikolaj.com/command_line_interface_-_published_gem)
 
 ## Installation
 
