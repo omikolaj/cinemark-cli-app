@@ -2,3 +2,4 @@
 require_relative '../lib/new_movies'
 
 NewMovies::CLI.new.call
+

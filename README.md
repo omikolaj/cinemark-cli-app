@@ -2,6 +2,10 @@
 
 This gem scrapes https://cinemark.com/movies/coming-soon and lists all of the upcoming movies to Cinemark Theatres and presents it in a list. User can select the movie they want more details on which will display all of the available details of that movie in a list.
 
+## Blog
+
+A blog post about this project can be found at [here](http://omikolaj.com/command_line_interface_-_published_gem)
+
 ## Installation
 
 You can install this gem via 'gem install new_movies_cinemark'. 
